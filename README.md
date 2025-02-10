@@ -8,7 +8,7 @@
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 [![WCAG 2.1](https://img.shields.io/badge/WCAG-2.1_AA-00A98F?style=for-the-badge)](https://www.w3.org/WAI/WCAG21/quickref/)
 
-A modern, accessible YouTube video downloader built with AI assistance, focusing on user experience and accessibility.
+A modern, accessible YouTube video downloader built with AI assistance, focusing on user experience and accessibility. Download your favorite videos in high quality while enjoying a clean, intuitive interface that's fully WCAG 2.1 AA compliant.
 
 [Features](#features) • [Quick Start](#quick-start) • [Tech Stack](#tech-stack) • [Development Story](#development-story) • [Deployment](#deployment)
 
@@ -41,10 +41,22 @@ python youtube_downloader.py
 ```
 
 3. **Use**
-- Open http://localhost:5012
-- Paste YouTube URL
-- Click "Get Video Info"
-- Download your video!
+```bash
+# Start the application
+python youtube_downloader.py
+
+# Open in your browser
+open http://localhost:5012  # Mac
+# or
+xdg-open http://localhost:5012  # Linux
+# or visit http://localhost:5012 in your browser
+```
+
+Then:
+1. Paste a YouTube URL
+2. Click "Get Video Info"
+3. Choose your preferred format
+4. Download and enjoy!
 
 ## 💻 Tech Stack
 
