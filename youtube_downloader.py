@@ -91,8 +91,9 @@ def get_best_format(formats):
 
 def get_video_info(url):
     ydl_opts = {
-        'format': 'bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
-        'quiet': True
+        'quiet': True,
+        'format': 'best',
+        'no_warnings': True
     }
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -176,6 +177,7 @@ def download():
             'format': format_id,
             'outtmpl': output_path,
             'quiet': True,
+            'no_warnings': True,
             'progress_hooks': [progress_hook]
         }
         
