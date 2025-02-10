@@ -147,8 +147,14 @@ def download():
     if not url:
         return jsonify({'error': 'No URL provided'})
 
+    # Validate URL format
+    if not url.startswith(('http://', 'https://', 'www.youtube.com', 'youtube.com', 'youtu.be')):
+        return jsonify({'error': 'Invalid YouTube URL'})
+
     # Create a temporary directory for this download
     temp_dir = tempfile.mkdtemp()
+    app.logger.info(f"Created temp directory: {temp_dir}")
+
     try:
         # First get video info to get the title
         with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
@@ -209,11 +215,20 @@ def download():
         # Clean up temp directory
         try:
             if os.path.exists(temp_dir):
+                app.logger.info(f"Cleaning up temp directory: {temp_dir}")
                 for f in os.listdir(temp_dir):
-                    os.remove(os.path.join(temp_dir, f))
+                    file_path = os.path.join(temp_dir, f)
+                    try:
+                        if os.path.isfile(file_path):
+                            os.unlink(file_path)
+                        elif os.path.isdir(file_path):
+                            os.rmdir(file_path)
+                    except Exception as e:
+                        app.logger.error(f"Error removing {file_path}: {str(e)}")
                 os.rmdir(temp_dir)
+                app.logger.info("Temp directory cleaned up successfully")
         except Exception as e:
-            app.logger.error(f"Error cleaning up temp directory: {str(e)}")
+            app.logger.error(f"Error during cleanup: {str(e)}")
 
 @app.route('/serve-file', methods=['POST'])
 def serve_file():
