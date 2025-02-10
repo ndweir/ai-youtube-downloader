@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minnesota Multi-Lingual News Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Minnesota Multi-Lingual News Generator</h1>
+            <p>Create engaging news content in multiple languages for Minnesota's diverse communities</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="content-grid">
+            <!-- Main Form Column -->
+            <div class="main-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Create News Content</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="newsForm">
+                            <!-- Input Options -->
+                            <div class="input-group">
+                                <label class="form-label">Input Type</label>
+                                <div class="option-group">
+                                    <div class="option-chip active" data-input="text">
+                                        <i class="bi bi-file-text"></i>Text
+                                    </div>
+                                    <div class="option-chip" data-input="audio">
+                                        <i class="bi bi-mic"></i>Audio
+                                    </div>
+                                    <div class="option-chip" data-input="video">
+                                        <i class="bi bi-camera-video"></i>Video
+                                    </div>
+                                </div>
+
+                                <!-- Text Input -->
+                                <div id="textInput" class="input-section">
+                                    <textarea class="form-control" id="articleText" 
+                                        placeholder="Paste your news article or story here..."></textarea>
+                                </div>
+
+                                <!-- Audio Input -->
+                                <div id="audioInput" class="input-section" style="display: none;">
+                                    <div class="file-upload" id="audioDropZone">
+                                        <i class="bi bi-cloud-upload"></i>
+                                        <h5>Drop your audio file here</h5>
+                                        <p>or click to select a file</p>
+                                        <input type="file" id="audioFile" accept="audio/*" style="display: none;">
+                                    </div>
+                                </div>
+
+                                <!-- Video Input -->
+                                <div id="videoInput" class="input-section" style="display: none;">
+                                    <div class="file-upload" id="videoDropZone">
+                                        <i class="bi bi-cloud-upload"></i>
+                                        <h5>Drop your video file here</h5>
+                                        <p>or click to select a file</p>
+                                        <input type="file" id="videoFile" accept="video/*" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Language Options -->
+                            <div class="input-group">
+                                <label class="form-label">Target Languages</label>
+                                <div class="option-group">
+                                    <div class="option-chip active" data-lang="en">
+                                        <i class="bi bi-translate"></i>English
+                                    </div>
+                                    <div class="option-chip" data-lang="es">
+                                        <i class="bi bi-translate"></i>Spanish
+                                    </div>
+                                    <div class="option-chip" data-lang="so">
+                                        <i class="bi bi-translate"></i>Somali
+                                    </div>
+                                    <div class="option-chip" data-lang="hmn">
+                                        <i class="bi bi-translate"></i>Hmong
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Output Options -->
+                            <div class="input-group">
+                                <label class="form-label">Output Format</label>
+                                <div class="option-group">
+                                    <div class="option-chip active" data-output="text">
+                                        <i class="bi bi-file-text"></i>Text
+                                    </div>
+                                    <div class="option-chip" data-output="audio">
+                                        <i class="bi bi-headphones"></i>Audio
+                                    </div>
+                                    <div class="option-chip" data-output="video">
+                                        <i class="bi bi-camera-video"></i>Video
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Animation Style -->
+                            <div class="input-group animation-style-section">
+                                <label class="form-label">Animation Style</label>
+                                <div class="option-group animation-styles">
+                                    <div class="option-chip active" data-style="avatar">
+                                        <i class="bi bi-person-circle"></i>Realistic Avatar
+                                    </div>
+                                    <div class="option-chip" data-style="cartoon">
+                                        <i class="bi bi-emoji-laughing"></i>Cartoon
+                                    </div>
+                                    <div class="option-chip" data-style="anime">
+                                        <i class="bi bi-star"></i>Anime
+                                    </div>
+                                    <div class="option-chip" data-style="claymation">
+                                        <i class="bi bi-brush"></i>Claymation
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Closed Captions Options -->
+                            <div class="input-group">
+                                <label class="form-label">Closed Captions</label>
+                                <div class="option-group">
+                                    <div class="option-chip active" data-cc="auto">
+                                        <i class="bi bi-badge-cc"></i>Auto-Generate
+                                    </div>
+                                    <div class="option-chip" data-cc="upload">
+                                        <i class="bi bi-upload"></i>Upload SRT
+                                    </div>
+                                </div>
+                                <div id="srtUpload" style="display: none;">
+                                    <div class="file-upload" id="srtDropZone">
+                                        <i class="bi bi-file-text"></i>
+                                        <h5>Drop your SRT file here</h5>
+                                        <p>or click to select a file</p>
+                                        <input type="file" id="srtFile" accept=".srt" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-play-circle"></i>Generate Content
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Column -->
+            <div class="preview-column">
+                <div class="video-preview" id="videoPreview">
+                    <video controls>
+                        <source src="/static/demo/demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay preview-state">
+                        <button class="expand-btn" id="expandBtn">
+                            <i class="bi bi-arrows-fullscreen"></i>
+                        </button>
+                    </div>
+                    <div class="video-overlay processing-state" style="display: none;">
+                        <div class="style-icon">👤</div>
+                        <div class="status-badge processing">
+                            <i class="bi bi-hourglass-split"></i>
+                            Processing
+                        </div>
+                        <div class="progress-bar">
+                            <div style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
