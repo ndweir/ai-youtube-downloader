@@ -92,9 +92,9 @@ def get_best_format(formats):
 def get_video_info(url):
     ydl_opts = {
         'quiet': True,
-        'format': 'best[ext=mp4]/best',  # Simple format selection that works
+        'format': 'bestvideo[ext=mp4][vcodec^=avc1]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'no_warnings': True,
-        'prefer_ffmpeg': True
+        'prefer_ffmpeg': False
     }
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -175,12 +175,14 @@ def download():
                 return jsonify({'error': str(e)})
         
         ydl_opts = {
-            'format': 'best[ext=mp4]/best',  # Simple format selection that works
+            'format': format_id,
             'outtmpl': output_path,
             'quiet': True,
             'no_warnings': True,
-            'prefer_ffmpeg': True,
-            'progress_hooks': [progress_hook]
+            'prefer_ffmpeg': False,
+            'progress_hooks': [progress_hook],
+            'format_sort': ['res:1080', 'ext:mp4:m4a'],
+            'concurrent_fragment_downloads': 3
         }
         
         try:
