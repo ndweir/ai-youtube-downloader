@@ -91,9 +91,10 @@ def get_best_format(formats):
 
 def get_video_info(url):
     ydl_opts = {
+        'format': 'best',  # Use simplest format selection
         'quiet': True,
-        'format': 'best',
-        'no_warnings': True
+        'no_warnings': True,
+        'youtube_include_dash_manifest': False  # Skip DASH manifests
     }
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -174,11 +175,12 @@ def download():
                 return jsonify({'error': str(e)})
         
         ydl_opts = {
-            'format': format_id,
+            'format': 'best',  # Use simplest format selection
             'outtmpl': output_path,
             'quiet': True,
             'no_warnings': True,
-            'progress_hooks': [progress_hook]
+            'progress_hooks': [progress_hook],
+            'youtube_include_dash_manifest': False  # Skip DASH manifests
         }
         
         try:
