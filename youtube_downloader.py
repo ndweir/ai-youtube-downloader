@@ -92,20 +92,9 @@ def get_best_format(formats):
 def get_video_info(url):
     ydl_opts = {
         'quiet': True,
-        'format': 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b',  # Flexible format selection
+        'format': 'best[ext=mp4]/best',  # Simple format selection that works
         'no_warnings': True,
-        'prefer_ffmpeg': True,
-        'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-us,en;q=0.5'
-        },
-        'extractor_args': {
-            'youtube': {
-                'player_client': ['android'],
-                'player_skip': ['webpage', 'configs', 'js']
-            }
-        }
+        'prefer_ffmpeg': True
     }
     
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -186,27 +175,12 @@ def download():
                 return jsonify({'error': str(e)})
         
         ydl_opts = {
-            'format': 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b',  # Flexible format selection
+            'format': 'best[ext=mp4]/best',  # Simple format selection that works
             'outtmpl': output_path,
             'quiet': True,
             'no_warnings': True,
             'prefer_ffmpeg': True,
-            'progress_hooks': [progress_hook],
-            'retries': 10,
-            'fragment_retries': 10,
-            'skip_unavailable_fragments': True,
-            'merge_output_format': 'mp4',
-            'http_headers': {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language': 'en-us,en;q=0.5'
-            },
-            'extractor_args': {
-                'youtube': {
-                    'player_client': ['android'],
-                    'player_skip': ['webpage', 'configs', 'js']
-                }
-            }
+            'progress_hooks': [progress_hook]
         }
         
         try:
